@@ -95,7 +95,7 @@ def put_map(basic_map, name, point):
     i, j = point
     mi = 1+3*i
     mj = 1+2*j
-    print(basic_map[mi][mj],len(basic_map[mi][mj]))
+    #print(basic_map[mi][mj],len(basic_map[mi][mj]))
     if len(basic_map[mi][mj]) > 5:
         mi += 1
     basic_map[mi][mj] = basic_map[mi][mj].strip('\t') + name + ' \t'

@@ -1,4 +1,59 @@
 import time
+import numpy as np
+def update_leader(i_diff, j_diff):
+    y_cand = np.ones(4)
+    i_move = i_diff
+    j_move = j_diff
+    if abs(i_move) > abs(j_move):
+        i_move = (i_move / abs(i_move) * 2) if i_move !=0 else 0
+        j_move = (j_move / abs(j_move) * 1) if j_move !=0 else 0
+    elif abs(i_move) < abs(j_move):
+        i_move = (i_move / abs(i_move) * 1) if i_move !=0 else 0
+        j_move = (j_move / abs(j_move) * 2) if j_move !=0 else 0
+    else:
+        i_move = (i_move / abs(i_move) * 1) if i_move !=0 else 0
+        j_move = (j_move / abs(j_move) * 1) if j_move !=0 else 0
+    if i_move > 0:
+        y_cand[2] += i_move
+    if i_move < 0:
+        y_cand[0] += abs(i_move)
+    if i_move == 0:
+        y_cand[[0,2]] += 1
+    if j_move > 0:
+        y_cand[1] += j_move
+    if j_move < 0:
+        y_cand[3] += abs(j_move)
+    if j_move == 0:
+        y_cand[[1, 3]] += 1
+    return y_cand
+
+def update_member(i_diff, j_diff):
+    y_cand = np.ones(4)
+    i_move = i_diff
+    j_move = j_diff
+    if abs(i_move) > abs(j_move):
+        i_move = (i_move / abs(i_move) * 2) if i_move != 0 else 0
+        j_move = (j_move / abs(j_move) * 1) if j_move != 0 else 0
+    elif abs(i_move) < abs(j_move):
+        i_move = (i_move / abs(i_move) * 1) if i_move != 0 else 0
+        j_move = (j_move / abs(j_move) * 2) if j_move != 0 else 0
+    else:
+        i_move = (i_move / abs(i_move) * 1) if i_move != 0 else 0
+        j_move = (j_move / abs(j_move) * 1) if j_move != 0 else 0
+
+    if i_move > 0:
+        y_cand[0] += i_move
+    if i_move < 0:
+        y_cand[2] += abs(i_move)
+    if i_move == 0:
+        y_cand[[0, 2]] += 1
+    if j_move > 0:
+        y_cand[3] += j_move
+    if j_move < 0:
+        y_cand[1] += abs(j_move)
+    if j_move == 0:
+        y_cand[[1, 3]] += 1
+    return y_cand
 
 class Timer():
     def __init__(self, fps):

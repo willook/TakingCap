@@ -9,17 +9,13 @@ import pandas as pd
 import numpy as np
 
 from utils import Timer
-from model import make_model
+from model import make_model, Model
 # turn off flask verbos
 log = logging.getLogger('werkzeug')
 log.disabled = True
 
-vid = cv2.VideoCapture("templates\\04_gray.avi")
-outputFrame80 = None
-lock = threading.Lock()
-
 class Soldier(threading.Thread):
-    def __init__(self, id, team_name, level, n_wall, recv_url, fps=0.5):
+    def __init__(self, id, team_name, level, n_wall, recv_url, fps=0.5, datapath = "data\\data7x7_30000.csv"):
         threading.Thread.__init__(self)
         self.team_name = team_name
         self.level = level
@@ -36,15 +32,18 @@ class Soldier(threading.Thread):
                          2: [1, 0],  #down
                          3: [0, -1],}#left
         if self.level == 2:
-            df = pd.read_csv("data\\data7x7_1000.csv")
+            df = pd.read_csv(datapath)
             dataset = df.to_numpy()[:, 1:]
             n_data = len(dataset)
             X = dataset[:, :-2]
-            # print(X[:10])
             y1 = dataset[:, -2]
             y2 = dataset[:, -1]
-            self.imp1, self.clf1 = make_model(X, y1)
-            self.imp2, self.clf2 = make_model(X, y2)
+            #self.imp1, self.clf1 = make_model(X, y1)
+            #self.imp2, self.clf2 = make_model(X, y2)
+            self.model1 = Model(self.n_wall)
+            self.model1.train(X, y1)
+            self.model2 = Model(self.n_wall)
+            self.model2.train(X, y2)
 
     def random_step(self):
         det = random.random()
@@ -63,7 +62,9 @@ class Soldier(threading.Thread):
         if self.level == 1:
             move = [int(self.info[-2]), int(self.info[-1])]
         if self.level == 2:
-            next_step = self.clf1.predict(self.imp1.transform(self.map_data))[0]
+            #next_step = self.clf1.predict(self.imp1.transform(self.map_data))[0]
+            print("model1", end="")
+            next_step = self.model1.predict(self.map_data)[0]
             move = self.num2move[next_step]
 
         if self.point[0] + move[0] >= 0 and self.point[0] + move[0] < self.n_wall:
@@ -138,7 +139,9 @@ def main(args):
         if soldier.level != 2:
             return ""
 
-        next_step = soldier.clf2.predict(soldier.imp2.transform(soldier.map_data))[0]
+        #next_step = soldier.clf2.predict(soldier.imp2.transform(soldier.map_data))[0]
+        print("model2", end="")
+        next_step = soldier.model2.predict(soldier.map_data)[0]
         move = soldier.num2move[next_step]
         return " ".join(["level2", soldier.team_name[0]+"1", str(move[0]), str(move[1])])
 

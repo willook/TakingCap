@@ -11,7 +11,7 @@
 (완) is_done 작성
 (완) map arguparse 작성
 (완) 한칸에 여러명 들어올수 있게 수정
-랜덤 데이터 생성
+(완) 랜덤 데이터 생성
 
 [settings]
 map 초기화 속도 1 fps
@@ -35,6 +35,15 @@ python soldier.py -p 11101 -t blue -l 2 -n 7 -r http://127.0.0.1:11100/
 python soldier.py -p 11102 -t blue -l 1 -n 7 -r http://127.0.0.1:11101/
 python soldier.py -p 11103 -t red  -l 2 -n 7 -r http://127.0.0.1:11100/
 python soldier.py -p 11104 -t red  -l 1 -n 7 -r http://127.0.0.1:11103/
+
+[result]
+setting: dataset, data7x7_300000.csv, model, randomforest10, save_data, True
+leader acc:
+  train: 96.86666666666667
+  test : 80.66666666666666
+team   acc:
+  train: 93.30000000000001
+  test : 62.980000000000004
 
 [논점]
 1. 상급자가 명령을 내렸으나 하급자가 명령을 못받았을 수 있음

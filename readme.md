@@ -1,17 +1,5 @@
-[plan]
-2020 0103: 데이터 생성 및 학습 모델
-2020 0103: 맵과 모델 연동
-
 [todo]
-(완) solider를 leader와 member로 분리할 것 -> level로 구분하기로 함
-(완) member는 leader로 부터 command를 받도록 할 것
-(완) map은 요청자의 관측 결과를 송출 할 수 있도록 할 것
-(완) map.py에 flask 추가하고 b2, r2에 대한 요청 응답 작성
-(완) 병사들 한칸씩 이동하게 만들기
-(완) is_done 작성
-(완) map arguparse 작성
-(완) 한칸에 여러명 들어올수 있게 수정
-(완) 랜덤 데이터 생성
+생성, 예측 시, data jitter 추가해보기
 
 [settings]
 map 초기화 속도 1 fps

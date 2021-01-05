@@ -15,6 +15,7 @@
 map 초기화 속도 1 fps  
 병사들 이동 속도 0.5 fps  
 맵 크기 7 x 7  
+패킷 타임아웃 10ms  1ms에서 타임아웃남
 
 ### packet  
 map->level2  
@@ -40,6 +41,7 @@ leader acc:
 team   acc:  
 &nbsp;&nbsp;* train: 93.30000000000001  
 &nbsp;&nbsp;* test : 62.980000000000004  
+leader는 team이 근처에 오면 관측 가능하나 team은 leader를 관측하기 어려워 정확도가 낮은 것 같음  
 
 ### 논점
 1. 상급자가 명령을 내렸으나 하급자가 명령을 못받았을 수 있음  

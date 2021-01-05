@@ -76,7 +76,7 @@ class Soldier(threading.Thread):
         if self.level == 1:
             try:
                 # level 2로 부터 명령을 요청함
-                resp = requests.get(self.recv_url + "level2", timeout=0.001)
+                resp = requests.get(self.recv_url + "level2", timeout=0.01)
                 self.info = resp.text.split()
             except Exception as e:
                 # 명령이 없음, 대기
@@ -85,9 +85,10 @@ class Soldier(threading.Thread):
         if self.level == 2:
             try:
                 # 맵으로 부터 자기 이름의 객체가 알수 있는 정보를 요청함
-                resp = requests.get(self.recv_url + self.name, timeout=0.001)
+                resp = requests.get(self.recv_url + self.name, timeout=0.01)
                 self.info = resp.text.split()
             except Exception as e:
+                print("There is no respone from map")
                 # 맵으로 관측을 실패하더라도 gps는 있으므로 자기 위치는 알 수 있음
                 self.info = ['map', self.name, str(self.point[0]), str(self.point[1])]
 

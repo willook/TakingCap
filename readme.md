@@ -10,6 +10,7 @@
 (완) 모델 적용  
 (완) data imputer 이전 데이터 저장으로 바꿔보기  
 생성, 예측 시, data jitter 추가해보기  
+예측 결과를 입력으로 생존 모델 추가해보기
 
 ### settings  
 map 초기화 속도 1 fps  
